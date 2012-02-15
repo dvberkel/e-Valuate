@@ -1,4 +1,5 @@
 from Tree import Tree
+from Evaluator import IdentityEvaluator
 
 class GameTree(Tree):
     def __init__(self, data = None):
@@ -12,10 +13,6 @@ class GameTree(Tree):
             else:
                 self._value = evaluator.value(self.data())
         return self._value
-
-class IdentityEvaluator:
-    def value(self, data):
-        return data
 
 if __name__ == '__main__':
     assert GameTree() != None
