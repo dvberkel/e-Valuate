@@ -9,6 +9,9 @@ class Tree:
     def children(self):
         return self._children
 
+    def hasChildren(self):
+        return len(self.children()) > 0
+
     def addChild(self, child):
         self._children.append(child)
         

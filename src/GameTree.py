@@ -5,7 +5,7 @@ class GameTree(Tree):
         Tree.__init__(self,data)
 
     def evaluate(self, evaluator):
-        if (len(self.children()) > 0):
+        if (self.hasChildren()):
             return max([-value for value in [child.evaluate(evaluator) for child in self.children()]])
         return evaluator.value(self.data())
 
