@@ -1,4 +1,5 @@
 from Tree import Tree
+from Evaluator import OppositeTo
 
 class GameTree(Tree):
     def __init__(self, data = None):
@@ -8,7 +9,7 @@ class GameTree(Tree):
     def evaluate(self, evaluator):
         if (not self._value):
             if (self.hasChildren()):
-                self._value = max([-value for value in [child.evaluate(evaluator) for child in self.children()]])
+                self._value = max([value for value in [child.evaluate(OppositeTo(evaluator)) for child in self.children()]])
             else:
                 self._value = evaluator.value(self.data())
         return self._value
