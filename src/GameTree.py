@@ -1,5 +1,4 @@
 from Tree import Tree
-from Evaluator import IdentityEvaluator
 
 class GameTree(Tree):
     def __init__(self, data = None):
@@ -24,10 +23,11 @@ if __name__ == '__main__':
     root.addChild(child)
     assert child in root.children()
 
-    assert GameTree(0).evaluate(IdentityEvaluator()) == 0
-    assert GameTree(1).evaluate(IdentityEvaluator()) == 1
+    identity = Evaluator:IdentityEvaluator()
+    assert GameTree(0).evaluate(identity) == 0
+    assert GameTree(1).evaluate(identity) == 1
 
     root = GameTree(0)
     root.addChild(GameTree(-1))
     root.addChild(GameTree(-2))
-    assert root.evaluate(IdentityEvaluator()) == 2
+    assert root.evaluate(identity) == 2
