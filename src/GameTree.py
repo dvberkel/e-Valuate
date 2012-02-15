@@ -4,15 +4,11 @@ from Evaluator import OppositeTo
 class GameTree(Tree):
     def __init__(self, data = None):
         Tree.__init__(self,data)
-        self._value = None
 
     def evaluate(self, evaluator):
-        if (not self._value):
-            if (self.hasChildren()):
-                self._value = max([value for value in [child.evaluate(OppositeTo(evaluator)) for child in self.children()]])
-            else:
-                self._value = evaluator.value(self.data())
-        return self._value
+        if (self.hasChildren()):
+            return max([-value for value in [child.evaluate(OppositeTo(evaluator)) for child in self.children()]])
+        return evaluator.value(self.data())
 
 if __name__ == '__main__':
     import Evaluator
@@ -31,6 +27,22 @@ if __name__ == '__main__':
     assert GameTree(1).evaluate(identity) == 1
 
     root = GameTree(0)
-    root.addChild(GameTree(-1))
-    root.addChild(GameTree(-2))
+    root.addChild(GameTree(1))
+    root.addChild(GameTree(2))
     assert root.evaluate(identity) == 2
+
+    left = GameTree(0)
+    left.addChild(GameTree(1))
+    left.addChild(GameTree(2))
+    assert left.evaluate(identity) == 2
+
+    right = GameTree(0)
+    right.addChild(GameTree(-1))
+    right.addChild(GameTree(-3))
+    assert right.evaluate(identity) == -1
+
+    root = GameTree(0)
+    root.addChild(left)
+    root.addChild(right)
+    assert root.evaluate(identity) == 1
+    
