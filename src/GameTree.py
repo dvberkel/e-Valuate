@@ -15,6 +15,8 @@ class GameTree(Tree):
         return self._value
 
 if __name__ == '__main__':
+    import Evaluator
+
     assert GameTree() != None
 
     root = GameTree(0)
@@ -24,7 +26,7 @@ if __name__ == '__main__':
     root.addChild(child)
     assert child in root.children()
 
-    identity = Evaluator:IdentityEvaluator()
+    identity = Evaluator.IdentityEvaluator()
     assert GameTree(0).evaluate(identity) == 0
     assert GameTree(1).evaluate(identity) == 1
 
