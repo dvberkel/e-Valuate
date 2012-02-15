@@ -22,7 +22,9 @@ if __name__ == '__main__':
     assert Tree(1).data() == 1
 
     assert len(Tree().children()) == 0
+    assert not Tree().hasChildren()
     
     root, child = Tree(), Tree()
     root.addChild(child)
     assert child in root.children()
+    assert root.hasChildren()
