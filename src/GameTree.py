@@ -3,11 +3,15 @@ from Tree import Tree
 class GameTree(Tree):
     def __init__(self, data = None):
         Tree.__init__(self,data)
+        self._value = None
 
     def evaluate(self, evaluator):
-        if (self.hasChildren()):
-            return max([-value for value in [child.evaluate(evaluator) for child in self.children()]])
-        return evaluator.value(self.data())
+        if (not self._value):
+            if (self.hasChildren()):
+                self._value = max([-value for value in [child.evaluate(evaluator) for child in self.children()]])
+            else:
+                self._value = evaluator.value(self.data())
+        return self._value
 
 class IdentityEvaluator:
     def value(self, data):
