@@ -5,7 +5,7 @@ class Expression:
         else:
             return False
 
-class Digit(Expression):
+class Number(Expression):
     def __init__(self, value):
         self._value = value
     
@@ -38,7 +38,7 @@ class Variable(Expression):
 
     def substitute(self, bindings):
         if self.name() in bindings:
-            return Digit(bindings[self.name()])
+            return Number(bindings[self.name()])
         return self
 
     def _eq(self,other):
@@ -94,12 +94,12 @@ if __name__ == '__main__':
     assert not Minus(Variable(),Variable()) == Variable()
     assert not Variable() == Minus(Variable(),Variable())
 
-    assert Digit(0) != None
+    assert Number(0) != None
     
-    assert Digit(0) == Digit(0)
-    assert not Digit(0) == Digit(1)
+    assert Number(0) == Number(0)
+    assert not Number(0) == Number(1)
 
-    assert Minus(Variable('A'), Variable('B')).substitute({'A': 0}) == Minus(Digit(0), Variable('B'))
-    assert Plus(Digit(0), Variable('B')).substitute({'B': 1}) == Plus(Digit(0), Digit(1))
-    assert Plus(Variable('A'), Variable('B')).substitute({'A': 0, 'B': 1}) == Plus(Digit(0), Digit(1))
-    assert Minus(Variable('A'), Variable('A')).substitute({'A': 0}) == Minus(Digit(0), Digit(0))
+    assert Minus(Variable('A'), Variable('B')).substitute({'A': 0}) == Minus(Number(0), Variable('B'))
+    assert Plus(Number(0), Variable('B')).substitute({'B': 1}) == Plus(Number(0), Number(1))
+    assert Plus(Variable('A'), Variable('B')).substitute({'A': 0, 'B': 1}) == Plus(Number(0), Number(1))
+    assert Minus(Variable('A'), Variable('A')).substitute({'A': 0}) == Minus(Number(0), Number(0))
