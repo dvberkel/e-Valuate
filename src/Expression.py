@@ -72,6 +72,14 @@ class Minus(Operator):
     def substitute(self, bindings):
         return Minus(self.left().substitute(bindings), self.right().substitute(bindings))
 
+class Multiply(Operator):
+    def __init__(self, left, right):
+        Operator.__init__(self, left, right)
+
+    def substitute(self, bindings):
+        return Multiply(self.left().substitute(bindings), self.right().substitute(bindings))
+    
+
 if __name__ == '__main__':
     assert Variable() != None
 
@@ -103,3 +111,7 @@ if __name__ == '__main__':
     assert Plus(Number(0), Variable('B')).substitute({'B': 1}) == Plus(Number(0), Number(1))
     assert Plus(Variable('A'), Variable('B')).substitute({'A': 0, 'B': 1}) == Plus(Number(0), Number(1))
     assert Minus(Variable('A'), Variable('A')).substitute({'A': 0}) == Minus(Number(0), Number(0))
+
+    assert Multiply(Variable('A'), Variable('B')) != None
+
+    assert Multiply(Variable('A'), Variable('B')).substitute({'A': 1}) == Multiply(Number(1), Variable('B'))
