@@ -10,7 +10,10 @@ class AlphaBetaTree(GameTree):
         return result
     
     def alphaBeta(self, evaluator, alpha = -Decimal('infinity'), beta = Decimal('infinity')):
-        return GameTree.evaluate(self,evaluator), alpha, beta
+        if (self.hasChildren()):
+            return GameTree.evaluate(self, evaluator), alpha, beta
+        result = evaluator.value(self.data())
+        return result, result, beta
 
 if __name__ == '__main__':
     import Evaluator
