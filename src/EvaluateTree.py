@@ -37,4 +37,9 @@ if __name__ == '__main__':
     root.addChild(Tree(1).addChild(Tree(Number(1))))
     assert EvaluateTree.createWith(Variable('A'), [0,1]) == root
 
-    assert EvaluateTree.createWith(Minus(Variable('A'), Variable('B')), [0]).alphaBeta(Evaluator()) == 0
+    evaluator = Evaluator()
+    assert EvaluateTree.createWith(Minus(Variable('A'), Variable('B')), [0]).alphaBeta(evaluator) == 0
+    assert EvaluateTree.createWith(Minus(Variable('A'), Variable('B')), [0, 1]).alphaBeta(evaluator) == 0
+    assert EvaluateTree.createWith(Minus(Variable('A'), Variable('B')), [0, 1, 2]).alphaBeta(evaluator) == 1
+    assert EvaluateTree.createWith(Minus(Variable('A'), Variable('B')), [0, 1, 2, 3]).alphaBeta(evaluator) == 1
+    assert EvaluateTree.createWith(Minus(Variable('A'), Variable('B')), [0, 1, 2, 3, 4]).alphaBeta(evaluator) == 2
