@@ -1,15 +1,15 @@
-class Unbound:
-    _count = -1
-
-    @staticmethod
-    def name():
-        Unbound._count += 1
-        return "$%s" % Unbound._count
-
 class Variable:
+    class Unbound:
+        _count = -1
+        
+        @staticmethod
+        def name():
+            Variable.Unbound._count += 1
+            return "$%s" % Variable.Unbound._count
+
     def __init__(self, name = None):
         if not name:
-            name = Unbound.name()
+            name = Variable.Unbound.name()
         self._name = name
     
     def name(self):
