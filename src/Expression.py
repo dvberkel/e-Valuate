@@ -21,7 +21,7 @@ class Variable:
         else:
             return False
 
-class Plus:
+class Operator:
     def __init__(self, left, right):
         self._left = left
         self._right = right
@@ -37,6 +37,14 @@ class Plus:
             return self.left() == other.left() and self.right() == other.right()
         return False
 
+class Plus(Operator):
+    def __init__(self, left, right):
+        Operator.__init__(self, left, right)
+
+class Minus(Operator):
+    def __init__(self, left, right):
+        Operator.__init__(self, left, right)
+
 if __name__ == '__main__':
     assert Variable() != None
 
@@ -49,3 +57,6 @@ if __name__ == '__main__':
 
     assert Plus(Variable('A'), Variable('B')) == Plus(Variable('A'), Variable('B'))
     assert not Plus(Variable('A'), Variable('B')) == Plus(Variable('A'), Variable())
+
+    assert Minus(Variable('A'), Variable('B')) == Minus(Variable('A'), Variable('B'))
+    assert not Minus(Variable('A'), Variable('B')) == Minus(Variable('A'), Variable())
