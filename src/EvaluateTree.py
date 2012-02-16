@@ -27,3 +27,8 @@ if __name__ == '__main__':
     root = Tree(Variable('A'))
     root.addChild(Tree(0).addChild(Tree(Number(0))))
     assert EvaluateTree.createWith(Variable('A'), [0]) == root
+
+    root = Tree(Variable('A'))
+    root.addChild(Tree(0).addChild(Tree(Number(0))))
+    root.addChild(Tree(1).addChild(Tree(Number(1))))
+    assert EvaluateTree.createWith(Variable('A'), [0,1]) == root
