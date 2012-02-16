@@ -20,6 +20,10 @@ class SubstituteTree(EvaluateTree):
         for variable in expression.variables():
             self.addChild(ProposeTree(expression.substitute({variable.name(): proposal}), domain))
 
+class Evaluator:
+    def value(self, expression):
+        return expression.value()
+
 if __name__ == '__main__':
     from Tree import Tree
     assert EvaluateTree.createWith(Minus(Variable('A'),Variable('B')), [0, 1, 2]) != None
@@ -32,3 +36,5 @@ if __name__ == '__main__':
     root.addChild(Tree(0).addChild(Tree(Number(0))))
     root.addChild(Tree(1).addChild(Tree(Number(1))))
     assert EvaluateTree.createWith(Variable('A'), [0,1]) == root
+
+    assert EvaluateTree.createWith(Minus(Variable('A'), Variable('B')), [0]).alphaBeta(Evaluator()) == 0
