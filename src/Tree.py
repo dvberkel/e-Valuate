@@ -14,6 +14,7 @@ class Tree:
 
     def addChild(self, child):
         self._children.append(child)
+        return self
         
 if __name__ == '__main__':
     assert Tree() != None
@@ -28,3 +29,5 @@ if __name__ == '__main__':
     root.addChild(child)
     assert child in root.children()
     assert root.hasChildren()
+
+    assert len(Tree().addChild(Tree()).children()) == 1
