@@ -1,3 +1,17 @@
+class Digit:
+    def __init__(self, value):
+        self._value = value
+    
+    def value(self):
+        return self._value
+
+    def __eq__(self, other):
+        if other.__class__ is self.__class__:
+            return self.value() == other.value()
+        else:
+            return False
+        
+
 class Variable:
     class Unbound:
         _count = -1
@@ -66,3 +80,9 @@ if __name__ == '__main__':
     assert not Variable() == Plus(Variable(),Variable())
     assert not Minus(Variable(),Variable()) == Variable()
     assert not Variable() == Minus(Variable(),Variable())
+
+    assert Digit(0) != None
+    
+    assert Digit(0) == Digit(0)
+    assert not Digit(0) == Digit(1)
+
