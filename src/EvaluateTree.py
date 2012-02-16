@@ -1,22 +1,22 @@
 from AlphaBetaTree import AlphaBetaTree
 from Expression import *
 
-class EvaluateTree:
+class EvaluateTree(AlphaBetaTree):
     @staticmethod
     def createWith(expression, domain):
         tree = ProposeTree(expression, domain)
         return tree
 
-class ProposeTree(AlphaBetaTree):
+class ProposeTree(EvaluateTree):
     def __init__(self, expression, domain):
-        AlphaBetaTree.__init__(self, expression)
+        EvaluateTree.__init__(self, expression)
         if expression.variables():
             for proposal in domain:
                 self.addChild(SubstituteTree(expression, domain, proposal))
 
-class SubstituteTree(AlphaBetaTree):
+class SubstituteTree(EvaluateTree):
     def __init__(self, expression, domain, proposal):
-        AlphaBetaTree.__init__(self, proposal)
+        EvaluateTree.__init__(self, proposal)
         for variable in expression.variables():
             self.addChild(ProposeTree(expression.substitute({variable.name(): proposal}), domain))
 
