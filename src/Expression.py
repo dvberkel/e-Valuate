@@ -15,9 +15,17 @@ class Number(Expression):
     def substitute(self, bindings):
         return self
 
+    def variables(self):
+        return set([])
+
     def _eq(self,other):
         return self.value() == other.value()
-        
+
+    def __hash__(self):
+        return hash(self.value())
+
+    def __str__(self):
+        return "{}".format(str(self.value()))
 
 class Variable(Expression):
     class Unbound:
@@ -40,9 +48,18 @@ class Variable(Expression):
         if self.name() in bindings:
             return Number(bindings[self.name()])
         return self
+    
+    def variables(self):
+        return set([self])
 
     def _eq(self,other):
         return self.name() == other.name()
+
+    def __hash__(self):
+        return hash(self.name())
+
+    def __str__(self):
+        return "{}".format(self.name())
 
 class Operator(Expression):
     def __init__(self, left, right):
@@ -55,8 +72,17 @@ class Operator(Expression):
     def right(self):
         return self._right
 
+    def variables(self):
+        return self.left().variables().union(self.right().variables())
+
     def _eq(self,other):
         return self.left() == other.left() and self.right() == other.right()
+    
+    def __hash__(self):
+        return hash(self.left()) ^ hash(self.right())
+
+    def __str__(self):
+        return "({0} {2} {1})".format(str(self.left()), str(self.right()), self._symbol())
 
 class Plus(Operator):
     def __init__(self, left, right):
@@ -68,6 +94,9 @@ class Plus(Operator):
     def value(self):
         return self.left().value() + self.right().value()
 
+    def _symbol(self):
+        return "+"
+
 class Minus(Operator):
     def __init__(self, left, right):
         Operator.__init__(self, left, right)
@@ -77,6 +106,9 @@ class Minus(Operator):
 
     def value(self):
         return self.left().value() - self.right().value()
+
+    def _symbol(self):
+        return "-"
 
 class Multiply(Operator):
     def __init__(self, left, right):
@@ -88,6 +120,8 @@ class Multiply(Operator):
     def value(self):
         return self.left().value() * self.right().value()
 
+    def _symbol(self):
+        return "*"
 
 if __name__ == '__main__':
     assert Variable() != None
@@ -129,3 +163,5 @@ if __name__ == '__main__':
     assert Plus(Number(1),Number(2)).value() == 3
     assert Minus(Number(1),Number(2)).value() == -1
     assert Multiply(Number(2),Number(3)).value() == 6
+
+    assert Plus(Variable('A'),Variable('B')).variables() == set([Variable('A'), Variable('B')])
