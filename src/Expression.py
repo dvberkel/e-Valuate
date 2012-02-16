@@ -21,6 +21,22 @@ class Variable:
         else:
             return False
 
+class Plus:
+    def __init__(self, left, right):
+        self._left = left
+        self._right = right
+        
+    def left(self):
+        return self._left
+
+    def right(self):
+        return self._right
+
+    def __eq__(self, other):
+        if type(other) is type(self):
+            return self.left() == other.left() and self.right() == other.right()
+        return False
+
 if __name__ == '__main__':
     assert Variable() != None
 
@@ -28,3 +44,8 @@ if __name__ == '__main__':
     assert not Variable('A') == Variable('B')
     assert not Variable('A') == Variable()
     assert not Variable() == Variable()
+
+    assert Plus(Variable('A'), Variable('B')) != None
+
+    assert Plus(Variable('A'), Variable('B')) == Plus(Variable('A'), Variable('B'))
+    assert not Plus(Variable('A'), Variable('B')) == Plus(Variable('A'), Variable())
