@@ -1,4 +1,11 @@
-class Digit:
+class Expression:
+    def __eq__(self, other):
+        if other.__class__ is self.__class__:
+            return self._eq(other)
+        else:
+            return False
+
+class Digit(Expression):
     def __init__(self, value):
         self._value = value
     
@@ -8,14 +15,11 @@ class Digit:
     def substitute(self, bindings):
         return self
 
-    def __eq__(self, other):
-        if other.__class__ is self.__class__:
-            return self.value() == other.value()
-        else:
-            return False
+    def _eq(self,other):
+        return self.value() == other.value()
         
 
-class Variable:
+class Variable(Expression):
     class Unbound:
         _count = -1
         
@@ -37,13 +41,10 @@ class Variable:
             return Digit(bindings[self.name()])
         return self
 
-    def __eq__(self, other):
-        if other.__class__ is self.__class__:
-            return self.name() == other.name()
-        else:
-            return False
+    def _eq(self,other):
+        return self.name() == other.name()
 
-class Operator:
+class Operator(Expression):
     def __init__(self, left, right):
         self._left = left
         self._right = right
@@ -54,10 +55,8 @@ class Operator:
     def right(self):
         return self._right
 
-    def __eq__(self, other):
-        if other.__class__ is self.__class__:
-            return self.left() == other.left() and self.right() == other.right()
-        return False
+    def _eq(self,other):
+        return self.left() == other.left() and self.right() == other.right()
 
 class Plus(Operator):
     def __init__(self, left, right):
