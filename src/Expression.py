@@ -5,6 +5,9 @@ class Digit:
     def value(self):
         return self._value
 
+    def substitute(self, bindings):
+        return self
+
     def __eq__(self, other):
         if other.__class__ is self.__class__:
             return self.value() == other.value()
@@ -28,6 +31,11 @@ class Variable:
     
     def name(self):
         return self._name
+
+    def substitute(self, bindings):
+        if self.name() in bindings:
+            return Digit(bindings[self.name()])
+        return self
 
     def __eq__(self, other):
         if other.__class__ is self.__class__:
@@ -55,9 +63,15 @@ class Plus(Operator):
     def __init__(self, left, right):
         Operator.__init__(self, left, right)
 
+    def substitute(self, bindings):
+        return Plus(self.left().substitute(bindings), self.right().substitute(bindings))
+
 class Minus(Operator):
     def __init__(self, left, right):
         Operator.__init__(self, left, right)
+
+    def substitute(self, bindings):
+        return Minus(self.left().substitute(bindings), self.right().substitute(bindings))
 
 if __name__ == '__main__':
     assert Variable() != None
@@ -86,3 +100,7 @@ if __name__ == '__main__':
     assert Digit(0) == Digit(0)
     assert not Digit(0) == Digit(1)
 
+    assert Minus(Variable('A'), Variable('B')).substitute({'A': 0}) == Minus(Digit(0), Variable('B'))
+    assert Plus(Digit(0), Variable('B')).substitute({'B': 1}) == Plus(Digit(0), Digit(1))
+    assert Plus(Variable('A'), Variable('B')).substitute({'A': 0, 'B': 1}) == Plus(Digit(0), Digit(1))
+    assert Minus(Variable('A'), Variable('A')).substitute({'A': 0}) == Minus(Digit(0), Digit(0))
