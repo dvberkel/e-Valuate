@@ -26,17 +26,7 @@ if __name__ == '__main__':
     assert AlphaBetaTree(0).evaluate(identity) == 0
     assert AlphaBetaTree(1).evaluate(identity) == 1
 
-    left = GameTree(0)
-    left.addChild(GameTree(1))
-    left.addChild(GameTree(2))
-    assert left.evaluate(identity) == 2
-
-    right = GameTree(0)
-    right.addChild(GameTree(-1))
-    right.addChild(GameTree(-3))
-    assert right.evaluate(identity) == -1
-
     root = GameTree(0)
-    root.addChild(left)
-    root.addChild(right)
+    root.addChild(GameTree(0).addChild(GameTree(1)).addChild(GameTree(2)))
+    root.addChild(GameTree(0).addChild(GameTree(-1)).addChild(GameTree(-3)))
     assert root.evaluate(identity) == 1
