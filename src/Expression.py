@@ -33,7 +33,7 @@ class Operator:
         return self._right
 
     def __eq__(self, other):
-        if type(other) is type(self):
+        if other.__class__ is self.__class__:
             return self.left() == other.left() and self.right() == other.right()
         return False
 
@@ -60,3 +60,4 @@ if __name__ == '__main__':
 
     assert Minus(Variable('A'), Variable('B')) == Minus(Variable('A'), Variable('B'))
     assert not Minus(Variable('A'), Variable('B')) == Minus(Variable('A'), Variable())
+    assert not Minus(Variable('A'), Variable('B')) == Plus(Variable('A'), Variable('B'))
