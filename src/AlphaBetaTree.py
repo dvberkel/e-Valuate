@@ -6,14 +6,12 @@ class AlphaBetaTree(GameTree):
         GameTree.__init__(self, data)
     
     def evaluate(self, evaluator):
-        result, alpha, beta = self.alphaBeta(evaluator) 
-        return result
+        return self.alphaBeta(evaluator)
     
     def alphaBeta(self, evaluator, alpha = -Decimal('infinity'), beta = Decimal('infinity')):
         if (self.hasChildren()):
-            return GameTree.evaluate(self, evaluator), alpha, beta
-        result = evaluator.value(self.data())
-        return result, result, beta
+            return GameTree.evaluate(self, evaluator)
+        return evaluator.value(self.data())
 
 if __name__ == '__main__':
     import Evaluator
