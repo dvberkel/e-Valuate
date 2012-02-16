@@ -1,5 +1,5 @@
-Prune
-=====
+e-Valuate
+=========
 
 Inspired by an article about [e-Valuate](http://arxiv.org/abs/1202.0862 "E-Valuate on arXiv"),
 a two-player, zero-sum, sequential, perfect information game an arithmetic expressions, this
