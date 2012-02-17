@@ -1,7 +1,7 @@
 import unittest
 
-from evaluate.ExpressionFactory import *
-from evaluate.Expression import *
+from evaluate.factory import *
+from evaluate.expression import *
 
 class testExpressionFactory(unittest.TestCase):
     def testRpnCreate(self):

@@ -1,8 +1,8 @@
 import unittest
 
-from evaluate.EvaluateTree import EvaluateTree, Evaluator
-from evaluate.AlphaBetaTree import AlphaBetaTree
-from evaluate.Expression import *
+from evaluate.evaluate import EvaluateTree, Evaluator
+from evaluate.lphabeta import AlphaBetaTree
+from evaluate.expression import *
 
 class testEvaluateTree(unittest.TestCase):
     def testEvaluateTreeIsAnAlphaBetaTree(self):

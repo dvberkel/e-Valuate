@@ -1,5 +1,5 @@
-from AlphaBetaTree import AlphaBetaTree
-from Expression import *
+from evaluate.alphabeta import AlphaBetaTree
+from evaluate.expression import *
 
 class EvaluateTree(AlphaBetaTree):
     @staticmethod

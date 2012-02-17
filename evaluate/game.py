@@ -1,5 +1,5 @@
-from Tree import Tree
-from Evaluator import OppositeTo
+from evaluate.tree import Tree
+from evaluate.evaluator import OppositeTo
 
 class GameTree(Tree):
     def __init__(self, data = None):

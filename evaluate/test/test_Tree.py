@@ -1,6 +1,6 @@
 import unittest
 
-from evaluate.Tree import Tree
+from evaluate.tree import Tree
 
 class testTree(unittest.TestCase):
 
