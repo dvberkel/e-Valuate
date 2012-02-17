@@ -48,6 +48,8 @@ class Infix:
             if Token.number.match(token) or Token.variable.match(token):
                 result.append(token)
             elif Token.operator.match(token):
+                while len(stack) > 0 and self._lessPrecedence(token, stack[-1]):
+                    result.append(stack.pop())
                 stack.append(token)
             index += 1
         while len(stack) > 0:
@@ -65,6 +67,12 @@ class Infix:
     
         return tokens
 
+    def _lessPrecedence(self, o1, o2):
+        if (o1 == '+' or o1 == '+'):
+            if (o2 == '*'):
+                return True
+        return False        
+
 
 if __name__ == '__main__':
     assert Rpn.create("A B -") == Minus(Variable('A'), Variable('B'))
@@ -75,3 +83,5 @@ if __name__ == '__main__':
     assert Rpn.create("A B - C 5 - *") == Multiply(Minus(Variable('A'), Variable('B')), Minus(Variable('C'), Number(5)))
 
     assert Infix("A + B").toRpn() == "A B +"
+    assert Infix("A * B + C").toRpn() == "A B * C +"
+    assert Infix("A * B + C * D").toRpn() == "A B * C D * +"
