@@ -44,6 +44,9 @@ class Rpn:
 class Infix:
     def __init__(self, expression):
         self._expression = expression
+    
+    def create(self):
+        return Rpn.create(self.toRpn())
 
     def toRpn(self):
         index, result, stack, tokens = 0, [], [],  self._tokenize()
@@ -97,3 +100,5 @@ if __name__ == '__main__':
     assert Infix("A * B + C * D").toRpn() == "A B * C D * +"
 
     assert Infix("A * (B + C)").toRpn() == "A B C + *"
+
+    assert Infix("(A - B) * (C - 5)").create() == Multiply(Minus(Variable('A'), Variable('B')), Minus(Variable('C'), Number(5)))
