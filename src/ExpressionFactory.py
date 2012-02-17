@@ -1,10 +1,12 @@
 from Expression import *
 import re
 
-class Rpn:
+class Token:
     variable = re.compile("\\w+")
     number = re.compile("\\d+")
     operator = re.compile("\+|-|\*")
+
+class Rpn:
     operatorFactory = {'+': (lambda x,y: Plus(x,y)), '-': (lambda x,y: Minus(x,y)), '*': (lambda x,y: Multiply(x,y))}
 
     @staticmethod
@@ -14,11 +16,11 @@ class Rpn:
         index = 0
         while index < len(parts):
             token = parts[index]
-            if Rpn.number.match(token):
+            if Token.number.match(token):
                 stack.append(Number(int(token,10)))
-            elif Rpn.variable.match(token):
+            elif Token.variable.match(token):
                 stack.append(Variable(token))
-            elif Rpn.operator.match(token):
+            elif Token.operator.match(token):
                 right = stack.pop()
                 left = stack.pop()
                 factory = Rpn.operatorFactory[token]
