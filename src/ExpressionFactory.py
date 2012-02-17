@@ -5,15 +5,19 @@ class Token:
     variable = re.compile("^\\w+")
     number = re.compile("^\\d+")
     operator = re.compile("^(\+|-|\*)")
+    leftBracket = re.compile("^\(")
+    rightBracket = re.compile("^\)")
     whitespace = re.compile("^\\s+")
 
     @staticmethod
     def next(expression):
-        for regex in [Token.number, Token.variable, Token.operator, Token.whitespace]:
+        for regex in [Token.number, Token.variable, Token.operator, Token.whitespace, Token.leftBracket, Token.rightBracket]:
             m = regex.match(expression)
             if m:
                 return m
-        return None
+        if expression == '':
+            return None
+        raise Exception("unrecognized expression", expression)
 
 class Rpn:
     operatorFactory = {'+': (lambda x,y: Plus(x,y)), '-': (lambda x,y: Minus(x,y)), '*': (lambda x,y: Multiply(x,y))}
@@ -47,6 +51,12 @@ class Infix:
             token = tokens[index]
             if Token.number.match(token) or Token.variable.match(token):
                 result.append(token)
+            elif Token.leftBracket.match(token):
+                stack.append(token)
+            elif Token.rightBracket.match(token):
+                while len(stack) > 0 and not Token.leftBracket.match(stack[-1]):
+                    result.append(stack.pop())
+                stack.pop()
             elif Token.operator.match(token):
                 while len(stack) > 0 and self._lessPrecedence(token, stack[-1]):
                     result.append(stack.pop())
@@ -85,3 +95,5 @@ if __name__ == '__main__':
     assert Infix("A + B").toRpn() == "A B +"
     assert Infix("A * B + C").toRpn() == "A B * C +"
     assert Infix("A * B + C * D").toRpn() == "A B * C D * +"
+
+    assert Infix("A * (B + C)").toRpn() == "A B C + *"
