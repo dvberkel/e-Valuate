@@ -22,9 +22,11 @@ class Token:
 class Rpn:
     operatorFactory = {'+': (lambda x,y: Plus(x,y)), '-': (lambda x,y: Minus(x,y)), '*': (lambda x,y: Multiply(x,y))}
 
-    @staticmethod
-    def create(rpnExpression):
-        parts = rpnExpression.split(" ")
+    def __init__(self,expression):
+        self.expression = expression
+
+    def create(self):
+        parts = self.expression.split(" ")
         stack = []
         index = 0
         while index < len(parts):
@@ -46,7 +48,7 @@ class Infix:
         self._expression = expression
     
     def create(self):
-        return Rpn.create(self.toRpn())
+        return Rpn(self.toRpn()).create()
 
     def toRpn(self):
         result, stack = [], []
@@ -101,12 +103,12 @@ class Tokenize:
             return token
 
 if __name__ == '__main__':
-    assert Rpn.create("A B -") == Minus(Variable('A'), Variable('B'))
-    assert Rpn.create("A B +") == Plus(Variable('A'), Variable('B'))
-    assert Rpn.create("A B *") == Multiply(Variable('A'), Variable('B'))
+    assert Rpn("A B -").create() == Minus(Variable('A'), Variable('B'))
+    assert Rpn("A B +").create() == Plus(Variable('A'), Variable('B'))
+    assert Rpn("A B *").create() == Multiply(Variable('A'), Variable('B'))
 
-    assert Rpn.create("A B - C D - *") == Multiply(Minus(Variable('A'), Variable('B')), Minus(Variable('C'), Variable('D')))
-    assert Rpn.create("A B - C 5 - *") == Multiply(Minus(Variable('A'), Variable('B')), Minus(Variable('C'), Number(5)))
+    assert Rpn("A B - C D - *").create() == Multiply(Minus(Variable('A'), Variable('B')), Minus(Variable('C'), Variable('D')))
+    assert Rpn("A B - C 5 - *").create() == Multiply(Minus(Variable('A'), Variable('B')), Minus(Variable('C'), Number(5)))
 
     assert Infix("A + B").toRpn() == "A B +"
     assert Infix("A * B + C").toRpn() == "A B * C +"
