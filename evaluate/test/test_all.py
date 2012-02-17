@@ -5,11 +5,12 @@ from evaluate.test.test_GameTree import testGameTree
 from evaluate.test.test_AlphaBetaTree import testAlphaBetaTree
 from evaluate.test.test_Expression import testExpression
 from evaluate.test.test_EvaluateTree import testEvaluateTree
+from evaluate.test.test_ExpressionFactory import testExpressionFactory
 
 class EvaluateSuite(unittest.TestSuite):
     def __init__(self):
         unittest.TestSuite.__init__(self)
-        for clazz in [testTree, testGameTree, testAlphaBetaTree, testExpression, testEvaluateTree]:
+        for clazz in [testTree, testGameTree, testAlphaBetaTree, testExpression, testEvaluateTree, testExpressionFactory]:
             self.addTest(unittest.makeSuite(clazz))
 
 if __name__ == '__main__':
