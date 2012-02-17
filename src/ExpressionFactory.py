@@ -49,9 +49,8 @@ class Infix:
         return Rpn.create(self.toRpn())
 
     def toRpn(self):
-        index, result, stack, tokens = 0, [], [],  self._tokenize()
-        while index < len(tokens):
-            token = tokens[index]
+        result, stack = [], []
+        for token in Tokenize(self._expression):
             if Token.number.match(token) or Token.variable.match(token):
                 result.append(token)
             elif Token.leftBracket.match(token):
@@ -64,21 +63,9 @@ class Infix:
                 while len(stack) > 0 and self._lessPrecedence(token, stack[-1]):
                     result.append(stack.pop())
                 stack.append(token)
-            index += 1
         while len(stack) > 0:
             result.append(stack.pop())
         return " ".join(result)
-
-    def _tokenize(self):
-        index, tokens = 0, []
-        m = Token.next(self._expression[index:])
-        while m:
-            index += m.end()
-            if not Token.whitespace.match(m.group()):
-                tokens.append(m.group())
-            m = Token.next(self._expression[index:])
-    
-        return tokens
 
     def _lessPrecedence(self, o1, o2):
         if (o1 == '+' or o1 == '+'):
@@ -86,6 +73,32 @@ class Infix:
                 return True
         return False        
 
+class Tokenize:
+    def __init__(self, expression):
+        self.tokens = self._tokenize(expression)
+        self.index = 0
+
+    def _tokenize(self, expression):
+        index, tokens = 0, []
+        m = Token.next(expression[index:])
+        while m:
+            index += m.end()
+            if not Token.whitespace.match(m.group()):
+                tokens.append(m.group())
+            m = Token.next(expression[index:])
+    
+        return tokens
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        if self.index == len(self.tokens):
+            raise StopIteration
+        else:
+            token = self.tokens[self.index]
+            self.index += 1
+            return token
 
 if __name__ == '__main__':
     assert Rpn.create("A B -") == Minus(Variable('A'), Variable('B'))
