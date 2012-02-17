@@ -2,9 +2,9 @@ from Expression import *
 import re
 
 class Token:
-    variable = re.compile("\\w+")
-    number = re.compile("\\d+")
-    operator = re.compile("\+|-|\*")
+    variable = re.compile("^\\w+")
+    number = re.compile("^\\d+")
+    operator = re.compile("^(\+|-|\*)")
 
 class Rpn:
     operatorFactory = {'+': (lambda x,y: Plus(x,y)), '-': (lambda x,y: Minus(x,y)), '*': (lambda x,y: Multiply(x,y))}
