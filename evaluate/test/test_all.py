@@ -9,11 +9,8 @@ from evaluate.test.test_EvaluateTree import testEvaluateTree
 class EvaluateSuite(unittest.TestSuite):
     def __init__(self):
         unittest.TestSuite.__init__(self)
-        self.addTest(unittest.makeSuite(testTree))
-        self.addTest(unittest.makeSuite(testGameTree))
-        self.addTest(unittest.makeSuite(testAlphaBetaTree))
-        self.addTest(unittest.makeSuite(testExpression))
-        self.addTest(unittest.makeSuite(testEvaluateTree))
+        for clazz in [testTree, testGameTree, testAlphaBetaTree, testExpression, testEvaluateTree]:
+            self.addTest(unittest.makeSuite(clazz))
 
 if __name__ == '__main__':
     suite = EvaluateSuite()
