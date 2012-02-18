@@ -14,10 +14,14 @@ if len(sys.argv) == 3:
       value = input("Propose a value for %s between 0 and %d: " % (str(expression), max(domain)))
       if value in domain:
         break
+      else:
+        print "Make sure the proposal is in %s" % domain
     while 1:
       variable = raw_input("In %s substitute %d into: " % (str(expression), value))
       if variable in [ v.name() for v in expression.variables()]:
         break
+      else:
+        print "Make sure it is one of the variables"
 
     expression = expression.substitute({variable: value})
   print "Finished with %d" % expression.value()
