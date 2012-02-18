@@ -1,4 +1,4 @@
-from evaluate.alphabeta import AlphaBetaTree
+from evaluate.tree.alphabeta import AlphaBetaTree
 from evaluate.expression import *
 
 class EvaluateTree(AlphaBetaTree):

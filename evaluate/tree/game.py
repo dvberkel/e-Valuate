@@ -1,4 +1,4 @@
-from evaluate.tree import Tree
+from evaluate.tree.tree import Tree
 from evaluate.evaluator import OppositeTo
 
 class GameTree(Tree):

@@ -1,4 +1,4 @@
-from evaluate.game import GameTree
+from evaluate.tree.game import GameTree
 from decimal import Decimal
 from evaluate.evaluator import OppositeTo
 

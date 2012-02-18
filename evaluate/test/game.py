@@ -1,7 +1,7 @@
 import unittest
 
-from evaluate.game import GameTree
-from evaluate.tree import Tree
+from evaluate.tree.game import GameTree
+from evaluate.tree.tree import Tree
 from evaluate.evaluator import IdentityEvaluator
 
 class testGameTree(unittest.TestCase):

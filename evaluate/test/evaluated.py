@@ -1,7 +1,7 @@
 import unittest
 
-from evaluate.evaluated import EvaluateTree, Evaluator
-from evaluate.alphabeta import AlphaBetaTree
+from evaluate.tree.evaluated import EvaluateTree, Evaluator
+from evaluate.tree.alphabeta import AlphaBetaTree
 from evaluate.expression import *
 
 class testEvaluateTree(unittest.TestCase):
