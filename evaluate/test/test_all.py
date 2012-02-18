@@ -1,11 +1,11 @@
 import unittest
 
-from evaluate.test.test_Tree import testTree
-from evaluate.test.test_GameTree import testGameTree
-from evaluate.test.test_AlphaBetaTree import testAlphaBetaTree
-from evaluate.test.test_Expression import testExpression
-from evaluate.test.test_EvaluateTree import testEvaluateTree
-from evaluate.test.test_ExpressionFactory import testExpressionFactory
+from evaluate.test.tree import testTree
+from evaluate.test.game import testGameTree
+from evaluate.test.alphabeta import testAlphaBetaTree
+from evaluate.test.expression import testExpression
+from evaluate.test.evaluated import testEvaluateTree
+from evaluate.test.factory import testExpressionFactory
 
 class EvaluateSuite(unittest.TestSuite):
     def __init__(self):
