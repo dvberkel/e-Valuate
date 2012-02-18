@@ -26,3 +26,13 @@ Test
 Run all the test by executing the command:
 
     python evaluate/test/test_all.py
+
+Executables
+-----------
+
+You can determine the optimal value for an expression and domain by using the `evaluate` executable.
+
+for example
+
+    > bin/evaluate "A-B" 4
+
