@@ -5,14 +5,21 @@ import sys
 from evaluate.expression.factory import Infix
 
 
-if len(sys.argv) == 2:
+if len(sys.argv) == 3:
   expression = Infix(sys.argv[1]).create()
+  domain = range(int(sys.argv[2]) + 1)
 
   while len(expression.variables()) > 0:
-    value = input("Propose a value for %s: " % str(expression))
-    variable = raw_input("In %s substitute %s into: " % (str(expression), str(value)))
-    
+    while 1:
+      value = input("Propose a value for %s between 0 and %d: " % (str(expression), max(domain)))
+      if value in domain:
+        break
+    while 1:
+      variable = raw_input("In %s substitute %d into: " % (str(expression), value))
+      if variable in [ v.name() for v in expression.variables()]:
+        break
+
     expression = expression.substitute({variable: value})
   print "Finished with %d" % expression.value()
 else:
-  print "usage: %s <expression>" % sys.argv[0]
+  print "usage: %s <expression> <domain>" % sys.argv[0]
