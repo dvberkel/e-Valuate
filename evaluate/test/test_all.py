@@ -3,9 +3,9 @@ import unittest
 from evaluate.tree.test.tree import testTree
 from evaluate.tree.test.game import testGameTree
 from evaluate.tree.test.alphabeta import testAlphaBetaTree
-from evaluate.test.expression import testExpression
+from evaluate.expression.test.expression import testExpression
 from evaluate.tree.test.evaluated import testEvaluateTree
-from evaluate.test.factory import testExpressionFactory
+from evaluate.expression.test.factory import testExpressionFactory
 
 class EvaluateSuite(unittest.TestSuite):
     def __init__(self):
