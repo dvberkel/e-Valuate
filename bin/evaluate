@@ -1,0 +1,15 @@
+#! /usr/bin/env python
+
+import sys
+
+from evaluate.tree.evaluated import EvaluateTree, Evaluator
+from evaluate.expression.factory import Infix
+
+
+if len(sys.argv) == 3:
+  expression = sys.argv[1]
+  domain = range(int(sys.argv[2]) + 1)
+  
+  print EvaluateTree.createWith(Infix(expression).create(), domain).alphaBeta(Evaluator())
+else:
+  print "usage: %s <expression> <domain>" % sys.argv[0]
