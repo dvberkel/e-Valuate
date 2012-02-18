@@ -36,3 +36,6 @@ for example
 
     > bin/evaluate "A-B" 4
 
+If instead you want to play the game for an expression and domain use `play`
+
+    > bin/evaluate "A-B" 4
