@@ -1,6 +1,6 @@
 from evaluate.tree.game import GameTree
 from decimal import Decimal
-from evaluate.evaluator import OppositeTo
+from evaluate.tree.evaluator import OppositeTo
 
 class AlphaBetaTree(GameTree):
     def __init__(self, data = None):

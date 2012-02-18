@@ -2,7 +2,7 @@ import unittest
 
 from evaluate.tree.alphabeta import AlphaBetaTree
 from evaluate.tree.game import GameTree
-from evaluate.evaluator import IdentityEvaluator
+from evaluate.tree.evaluator import IdentityEvaluator
 
 class testAlphaBetaTree(unittest.TestCase):
     def testAlphaBetaTreeIsAGameTree(self):

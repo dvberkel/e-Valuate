@@ -2,7 +2,7 @@ import unittest
 
 from evaluate.tree.evaluated import EvaluateTree, Evaluator
 from evaluate.tree.alphabeta import AlphaBetaTree
-from evaluate.expression import *
+from evaluate.expression.expression import *
 
 class testEvaluateTree(unittest.TestCase):
     def testEvaluateTreeIsAnAlphaBetaTree(self):

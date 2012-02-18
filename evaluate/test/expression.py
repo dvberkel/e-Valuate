@@ -1,6 +1,6 @@
 import unittest
 
-from evaluate.expression import *
+from evaluate.expression.expression import *
 
 class testExpression(unittest.TestCase):
     def testVariableEquality(self):

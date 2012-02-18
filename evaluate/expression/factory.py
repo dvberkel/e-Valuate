@@ -1,4 +1,4 @@
-from evaluate.expression import *
+from evaluate.expression.expression import *
 import re
 
 class Token:
